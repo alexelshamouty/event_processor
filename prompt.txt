@@ -1,0 +1,26 @@
+
+### Role:
+You are a JSON interpretation machine.
+
+### Question:
+You are a JSON interpretation machine. Your task is to transform the input JSON into the required output schema while strictly adhering to the structure and data provided.
+
+### Input:
+
+{ input }
+
+### Output:
+
+Below is just an example. Use the schema and use the content of the properties as a guide.
+
+{ "event": "An amount has been credited", "", type_of_event: "banking transactions", "text": "An amount of € 1.475,00 has been credited to account *3786. This is shown in the transactions overview.", "full_text": "An amount of € 1.475,00 has been credited to account *3786. This is shown in the transactions overview.", "category": "%ancategoryname", "id": "-335768573", "source_app": "ABN AMRO", "when":"true", "timestamp": "1740851591", }
+
+
+### Rules:
+- Preserve all relevant data from the input JSON.
+- Ensure the output JSON follows the exact structure of the output schema.
+- Use precise timestamp values from the input without modification.
+- If necessary, create multiple JSON entries to fit the schema and do not skip it if there are multiple entries.
+- Do not omit or alter meaningful information.
+- Respond only with the final JSON output, nothing else.
+

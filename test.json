@@ -1,0 +1,32 @@
+{
+  "resource": "/{proxy+}",
+  "path": "/test",
+  "httpMethod": "POST",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "queryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "resourcePath": "/{proxy+}",
+    "httpMethod": "POST",
+    "extendedRequestId": "test-request-id",
+    "requestTime": "01/Mar/2025:19:24:44 +0000",
+    "path": "/test",
+    "accountId": "123456789012",
+    "protocol": "HTTP/1.1",
+    "stage": "test",
+    "domainPrefix": "test",
+    "requestTimeEpoch": 1740853524,
+    "requestId": "test-request-id",
+    "identity": {
+      "sourceIp": "127.0.0.1",
+      "userAgent": "PostmanRuntime/7.29.0"
+    },
+    "domainName": "test.execute-api.us-east-1.amazonaws.com",
+    "apiId": "test-api-id"
+  },
+  "body": "{ \"event\": \"A commit was pushed\", \"type_of_event\": \"GitHub Repository Update\", \"text\": \"A commit with message 'small changes' was pushed to the repository 'alexelshamouty/alexelshamouty.github.io' on branch 'main'.\", \"full_text\": \"Commit ID: 75c60e6d55a5e7ae5c2f261992566d58a0049799\\nAuthor: alex.elshamouty\\nTimestamp: 2025-03-01T19:24:44+01:00\\nModified Files: config.toml, public/css/main.css, public/index.html, themes/hugo-coder/layouts/partials/home/avatar.html\", \"category\": \"GitHub\", \"id\": \"75c60e6d55a5e7ae5c2f261992566d58a0049799\", \"source_app\": \"GitHub\", \"when\": \"true\", \"timestamp\": \"1740853524\" }",
+  "isBase64Encoded": false
+}

@@ -1,0 +1,98 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: alexelshamouty
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: eventprocessor
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: eventsprocessor
+
+provider:
+  name: aws
+  runtime: python3.12
+  region: ${aws:region}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/eventsTable
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/usersTable
+
+package:
+  artifact: deployment.zip
+
+
+resources: # CloudFormation template syntax
+  Resources:
+    usersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: eventsTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: event
+            AttributeType: S
+        KeySchema:
+          - AttributeName: event
+            KeyType: HASH
+    connectionsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: usersTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: connectionid
+            AttributeType: S
+        KeySchema:
+          - AttributeName: connectionid
+            KeyType: HASH
+
+functions:
+  hello:
+    provisionedConcurrency: null
+    memorySize: 128
+    handler: handler.hello
+    package:
+      artifact: deployment.zip
+    events:
+      - httpApi:
+          path: /
+          method: post
+    url: true      
+    environment:
+      TABLE_NAME: eventsTable
+  connect:
+    memorySize: 128
+    handler: connect.handle
+    package:
+      artifact: deployment.zip
+    events:
+      - websocket:
+          route: $connect
+    environment:
+      TABLE_NAME: usersTable
+  disconnect:
+    memorySize: 128
+    handler: disconnect.handle
+    package:
+      artifact: deployment.zip
+    events:
+      - websocket:
+          route: $disconnect
+    environment:
+      TABLE_NAME: usersTable

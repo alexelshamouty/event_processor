@@ -1,0 +1,19 @@
+{
+  "ref": "refs/heads/main",
+  "before": "a7c3fdd3fe...",
+  "after": "b18c3ff3c2...",
+  "repository": {
+    "id": 123456789,
+    "name": "my-repo",
+    "full_name": "user/my-repo",
+    "private": false
+  },
+  "pusher": {
+    "name": "octocat",
+    "email": "octocat@github.com"
+  },
+  "sender": {
+    "login": "octocat",
+    "id": 1
+  }
+}

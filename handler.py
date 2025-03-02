@@ -3,7 +3,7 @@ import os
 import boto3
 
 def hello(event, context):
-    tableName = os.getenv("TABLE_NAME")
+    tableName = os.getenv("TABLE_NAME","eventsTable")
     try:
         body = json.loads(event.get('body',""))
     except Exception as e:

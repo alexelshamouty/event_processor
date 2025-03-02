@@ -1,11 +1,11 @@
 import boto3
 import os
-
+from mypy_boto3_dynamodb.service_resource import Table
 
 def handle(event, context):
-    tableName = os.getenv("TABLE_NAME")
+    tableName = os.getenv("TABLE_NAME","usersTable")
     dclient = boto3.resource("dynamodb")
-    table = dclient.Table(tableName)
+    table: Table = dclient.Table(name=tableName)
     connectionId = event["requestContext"]["connectionId"]
     try:
         table.put_item(Item={"connectionid": connectionId})
